@@ -23,6 +23,8 @@ namespace Bucket.WebAutomation
             Driver.Navigate().GoToUrl(url);
         }
 
+        // TODO: add default url
+        // TODO: would be good to have it default to home page
         public void Launch()
         {
             Driver.Navigate();

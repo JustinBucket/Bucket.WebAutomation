@@ -29,5 +29,10 @@ namespace Bucket.WebAutomation
         {
             Driver.Navigate();
         }
+
+        public void Click(Element ele)
+        {
+            Driver.FindElement(By.XPath(ele.Selector)).Click();
+        }
     }
 }

@@ -1,5 +1,6 @@
 using Bucket.WebAutomation;
 using Bucket.WebAutomation.Browser;
+using OpenQA.Selenium.Edge;
 
 namespace Testing;
 
@@ -11,7 +12,7 @@ public class TestWebBrowser
     {
         var browser = new WebBrowser(BrowserType.Edge);
 
-        Assert.AreEqual(BrowserType.Edge, browser.Type);
+        Assert.IsTrue(browser.Driver.GetType().IsAssignableFrom(typeof(EdgeDriver)));
     }
 
     [TestMethod]
@@ -22,14 +23,31 @@ public class TestWebBrowser
 
         // Assert.AreEqual("Example Domain", browser.Driver.Title);
     }
-    
+
     [TestMethod]
     public void TestNavigateToUrl()
     {
         var browser = new WebBrowser(BrowserType.Edge);
         browser.Launch();
-        browser.NavigateToUrl("https://www.google.ca");
+        browser.NavigateToUrl("https://www.google.com");
 
-        // Assert.AreEqual("Example Domain", browser.Driver.Title);
+        Assert.AreEqual("https://www.google.com/", browser.Driver.Url);
+
+        browser.Close();
+    }
+
+    [TestMethod]
+    public void TestOpenPreferences()
+    {
+        var browser = new WebBrowser(BrowserType.Edge);
+        browser.Launch();
+        browser.NavigateToUrl("https://www.google.com/");
+
+        var prefLink = new GoogleAboutLink();
+        browser.Click(prefLink);
+
+        Assert.AreEqual("https://about.google/?fg=1&utm_source=google-CA&utm_medium=referral&utm_campaign=hp-header", browser.Driver.Url);
+
+        browser.Close();
     }
 }

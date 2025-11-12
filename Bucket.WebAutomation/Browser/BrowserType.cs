@@ -5,7 +5,7 @@ namespace Bucket.WebAutomation.Browser
         Invalid,
         Edge,
         // Chrome,
-        // Firefox,
+        Firefox
         // Safari,
         // Opera
     }

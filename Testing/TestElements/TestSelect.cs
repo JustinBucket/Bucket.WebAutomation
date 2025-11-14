@@ -6,11 +6,11 @@ using Bucket.WebAutomation.Elements;
 
 namespace Testing.TestElements
 {
-    public class FormExampleSelect : Select
+    public class TestSelect : Select
     {
         //<select name="u_duC_338367" id="u_duC_338367" aria-required="true">
-        public FormExampleSelect()
-            : base(id: "u_duC_338367")
+        public TestSelect()
+            : base(id: "Country-1")
         {
             
         }

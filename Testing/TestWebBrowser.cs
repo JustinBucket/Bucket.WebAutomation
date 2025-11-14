@@ -37,7 +37,7 @@ public class TestWebBrowser
     }
 
     [TestMethod]
-    public void TestOpenPreferences()
+    public void TestOpenGoogleAbout()
     {
         var browser = new WebBrowser(BrowserType.Edge);
         browser.Launch();

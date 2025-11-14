@@ -8,7 +8,7 @@ namespace Bucket.WebAutomation.Elements
 {
     public abstract class Select : Element
     {
-        public List<string> Options { get; set; }
+        public List<string> Options { get; private set; }
 
         protected Select(
             string className = "",
@@ -26,7 +26,8 @@ namespace Bucket.WebAutomation.Elements
 
         public void RetrieveOptions(object sender, EventArgs e)
         {
-            // would be good to fire this when the element is found
+            Options = new List<string>();
+            
             var selectEle = new SelectElement(WebElement);
 
             foreach (var option in selectEle.Options)

@@ -51,7 +51,7 @@ namespace Bucket.WebAutomation
 
         public void Click(Element ele, ClickType type = ClickType.Single)
         {
-            if (ele.WebElement != null)
+            if (ele.WebElement == null)
             {
                 FindElement(ele);
             }
@@ -94,67 +94,66 @@ namespace Bucket.WebAutomation
         public void FindElement(Element ele)
         {
             // fire these in parralel
-            // Parallel.Invoke(
-            //     () =>
-            //     {
-            //         // if we've been provided the identifier type 
-            //         // and the web element hasn't already been found
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.XPath) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.XPath(ele.Selector.XPath));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.Id) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.Id(ele.Selector.Id));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.Name) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.Name(ele.Selector.Name));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.ClassName) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.ClassName(ele.Selector.ClassName));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.TagName) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.TagName(ele.Selector.TagName));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.LinkText) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.LinkText(ele.Selector.LinkText));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.PartialLinkText) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.PartialLinkText(ele.Selector.PartialLinkText));
-            //         }
-            //     },
-            //     () =>
-            //     {
-            //         if (!string.IsNullOrWhiteSpace(ele.Selector.CSS) && ele.WebElement == null)
-            //         {
-            //             ele.WebElement = Driver.FindElement(By.CssSelector(ele.Selector.CSS));
-            //         }
-            //     }
-            // );
-            ele.WebElement = Driver.FindElement(By.Id(ele.Selector.Id));
+            Parallel.Invoke(
+                () =>
+                {
+                    // if we've been provided the identifier type 
+                    // and the web element hasn't already been found
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.XPath) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.XPath(ele.Selector.XPath));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.Id) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.Id(ele.Selector.Id));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.Name) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.Name(ele.Selector.Name));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.ClassName) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.ClassName(ele.Selector.ClassName));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.TagName) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.TagName(ele.Selector.TagName));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.LinkText) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.LinkText(ele.Selector.LinkText));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.PartialLinkText) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.PartialLinkText(ele.Selector.PartialLinkText));
+                    }
+                },
+                () =>
+                {
+                    if (!string.IsNullOrWhiteSpace(ele.Selector.CSS) && ele.WebElement == null)
+                    {
+                        ele.WebElement = Driver.FindElement(By.CssSelector(ele.Selector.CSS));
+                    }
+                }
+            );
         }
     }
 }

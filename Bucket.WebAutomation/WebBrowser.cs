@@ -49,111 +49,17 @@ namespace Bucket.WebAutomation
             Driver.Quit();
         }
 
-        public void Click(Element ele, ClickType type = ClickType.Single)
+        public T CreateElement<T>() where T: Element
         {
-            if (ele.WebElement == null)
-            {
-                FindElement(ele);
-            }
+            var element = Activator.CreateInstance<T>();
+            element.driver = Driver;
 
-            Actions action;
-
-            switch (type)
-            {
-                case ClickType.Single:
-                    action = new Actions(Driver).Click(ele.WebElement);
-                    break;
-
-                case ClickType.Double:
-                    action = new Actions(Driver).DoubleClick(ele.WebElement);
-                    break;
-
-                case ClickType.Right:
-                    action = new Actions(Driver).ContextClick(ele.WebElement);
-                    break;
-                default:
-                    throw new NotImplementedException($"'{type}' not handled");
-            }
-
-
-            action.Perform();
+            return element;
         }
 
-        public bool ElementExists(Element ele)
+        public void Maximize()
         {
-            FindElement(ele);
-
-            if (ele.WebElement != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public void FindElement(Element ele)
-        {
-            // fire these in parralel
-            Parallel.Invoke(
-                () =>
-                {
-                    // if we've been provided the identifier type 
-                    // and the web element hasn't already been found
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.XPath) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.XPath(ele.Selector.XPath));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.Id) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.Id(ele.Selector.Id));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.Name) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.Name(ele.Selector.Name));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.ClassName) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.ClassName(ele.Selector.ClassName));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.TagName) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.TagName(ele.Selector.TagName));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.LinkText) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.LinkText(ele.Selector.LinkText));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.PartialLinkText) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.PartialLinkText(ele.Selector.PartialLinkText));
-                    }
-                },
-                () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(ele.Selector.CSS) && ele.WebElement == null)
-                    {
-                        ele.WebElement = Driver.FindElement(By.CssSelector(ele.Selector.CSS));
-                    }
-                }
-            );
-        }
+            Driver.Manage().Window.Maximize();
+        }        
     }
 }

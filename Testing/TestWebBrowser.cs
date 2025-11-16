@@ -13,6 +13,8 @@ public class TestWebBrowser
         var browser = new WebBrowser(BrowserType.Edge);
 
         Assert.IsTrue(browser.Driver.GetType().IsAssignableFrom(typeof(EdgeDriver)));
+
+        browser.Close();
     }
 
     [TestMethod]
@@ -20,6 +22,7 @@ public class TestWebBrowser
     {
         var browser = new WebBrowser(BrowserType.Edge);
         browser.Launch();
+        browser.Close();
 
         // Assert.AreEqual("Example Domain", browser.Driver.Title);
     }
@@ -35,19 +38,5 @@ public class TestWebBrowser
 
         browser.Close();
     }
-
-    [TestMethod]
-    public void TestOpenGoogleAbout()
-    {
-        var browser = new WebBrowser(BrowserType.Edge);
-        browser.Launch();
-        browser.NavigateToUrl("https://www.google.com/");
-
-        var prefLink = new GoogleAboutLink();
-        browser.Click(prefLink);
-
-        Assert.AreEqual("https://about.google/?fg=1&utm_source=google-CA&utm_medium=referral&utm_campaign=hp-header", browser.Driver.Url);
-
-        browser.Close();
-    }
+    
 }

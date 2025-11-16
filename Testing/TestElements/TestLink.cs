@@ -9,7 +9,7 @@ namespace Testing.TestElements
     public class TestLink : Link
     {
         public TestLink()
-            : base(id: "idfkqrC6nh")
+            : base(className: "track-order-header-link")
         {
             
         }

@@ -47,18 +47,17 @@ namespace Testing
             // TODO: this test is failing
             // intermittent - maybe a loading thing?
             var browser = new WebBrowser(BrowserType.Edge);
-            browser.NavigateToUrl("https://www.lcbo.com/en/recipe/vegetable-cheese-strudel/200105024");
+            browser.NavigateToUrl("https://www.pathofexile.com/");
             
-            Thread.Sleep(1000);
+            // Thread.Sleep(5000);
 
-            var linkElement = browser.CreateElement<TestLink>();
-            linkElement.Selector.Id = "this id is wrong";
+            var linkElement = browser.CreateElement<DualSelectorLink>();
             var eleExists = linkElement.ElementExists();
             browser.Close();
 
             Assert.IsTrue(eleExists);
             Assert.AreEqual(
-                @"https://www.lcbo.com/content/lcbo/en/corporate-pages/faq.html#how-do-i-track-my-order", 
+                @"https://www.pathofexile.com/account/create", 
                 linkElement.LinkAddress);
         }
 
